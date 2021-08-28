@@ -1,10 +1,10 @@
-package entity.input.base;
+package entity;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 public class BasePriceListTest {
     BasePriceList basePriceList;
@@ -17,8 +17,8 @@ public class BasePriceListTest {
     @Test
     @DisplayName("Test add bundle")
     void testAddBundle(){
-        Bundle testBundle = new Bundle(1, 2.5);
-        basePriceList.addBundle(testBundle);
+        basePriceList.addBundle(2,500);
         assertEquals(1, basePriceList.getBundles().size());
+        assertEquals(500,basePriceList.getBundles().get(2));
     }
 }

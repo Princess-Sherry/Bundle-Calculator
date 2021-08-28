@@ -1,10 +1,9 @@
 package service;
 
-import entity.input.AudioPriceList;
-import entity.input.ImagePriceList;
-import entity.input.VideoPriceList;
-import entity.input.base.BasePriceList;
-import entity.input.base.Bundle;
+import entity.AudioPriceList;
+import entity.ImagePriceList;
+import entity.VideoPriceList;
+import entity.BasePriceList;
 import lombok.Getter;
 
 import java.io.BufferedReader;
@@ -35,11 +34,11 @@ public class PriceListService {
         for (int i = 0; i < bundles.length - 1; i = i + 2) {
             int amount = Integer.parseInt(bundles[i]);
             double price = Double.parseDouble(bundles[i + 1]);
-            priceList.addBundle(new Bundle(amount, price));
+            priceList.addBundle(amount, price);
         }
     }
 
-    public void updatePriceListFromFile(String path) throws IOException {
+    public void updatePriceListFromFile(String path){
         initialiseFormatPriceListMap();
         BufferedReader inputPriceFile = null;
         try {
@@ -58,11 +57,9 @@ public class PriceListService {
                     }
                 }
             }
-        } catch (IOException e) {
-//            logger.log();
-            e.getMessage();
-        } finally {
             inputPriceFile.close();
+        } catch (IOException e) {
+            e.getMessage();
         }
     }
 }

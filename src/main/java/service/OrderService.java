@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
 public class OrderService {
     private LinkedHashMap<String, Integer> orders = new LinkedHashMap<String, Integer>();
 
-    public void loadOrderFile(String path) throws IOException {
+    public void loadOrderFile(String path)  {
         BufferedReader input = null;
         try {
             String line;
@@ -20,10 +20,9 @@ public class OrderService {
                 String[] lineSplit = line.split(" ");
                 this.orders.put(lineSplit[1], Integer.parseInt(lineSplit[0]));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
             input.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
