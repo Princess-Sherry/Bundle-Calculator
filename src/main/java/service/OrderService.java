@@ -6,12 +6,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.logging.Logger;
 
 @Getter
 public class OrderService {
+    private final static Logger LOGGER = Logger.getLogger(OrderService.class.getName());
     private LinkedHashMap<String, Integer> orders = new LinkedHashMap<String, Integer>();
 
     public void loadOrderFile(String path)  {
+        LOGGER.info("Start reading orders from file " + path);
         BufferedReader input = null;
         try {
             String line;
@@ -22,7 +25,7 @@ public class OrderService {
             }
             input.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            LOGGER.severe(e.getMessage());
         }
     }
 }

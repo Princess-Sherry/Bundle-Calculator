@@ -39,6 +39,7 @@ public class PriceListService {
     }
 
     public void updatePriceListFromFile(String path){
+        LOGGER.info("Start reading price list from file " + path);
         initialiseFormatPriceListMap();
         BufferedReader inputPriceFile = null;
         try {
@@ -59,7 +60,7 @@ public class PriceListService {
             }
             inputPriceFile.close();
         } catch (IOException e) {
-            e.getMessage();
+            LOGGER.severe(e.getMessage());
         }
     }
 }
