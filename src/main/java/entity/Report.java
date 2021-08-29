@@ -2,10 +2,11 @@ package entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 public class Report {
     private int orderAmount;
@@ -17,7 +18,7 @@ public class Report {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(orderAmount + " " + orderFormatCode + " $" + totalCost + "\n");
-        breakdowns.forEach(breakdown -> sb.append(breakdown));
+        breakdowns.forEach(breakdown -> sb.append(breakdown + "\n"));
         return sb.toString();
     }
 }

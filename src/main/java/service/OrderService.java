@@ -21,11 +21,13 @@ public class OrderService {
             input = new BufferedReader(new FileReader(path));
             while ((line = input.readLine()) != null) {
                 String[] lineSplit = line.split(" ");
-                this.orders.put(lineSplit[1], Integer.parseInt(lineSplit[0]));
+                this.orders.put(lineSplit[1].toUpperCase(), Integer.parseInt(lineSplit[0]));
             }
             input.close();
         } catch (IOException e) {
             LOGGER.severe(e.getMessage());
+        } finally {
+            LOGGER.info("Finish reading orders from file " + path);
         }
     }
 }

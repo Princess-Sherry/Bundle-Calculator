@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 
 @Getter
@@ -52,15 +51,17 @@ public class PriceListService {
                 String format = lineSplit[0].trim().toUpperCase();
                 String formatCode = lineSplit[1].trim().toUpperCase();
                 String[] bundles = lineSplit[2].trim().split("[^0-9.']+");
-                for (Map.Entry<String, BasePriceList> e: this.formatPriceListMapping.entrySet()) {
-                    if (e.getKey().equals(formatCode)) {
-                        updatePriceList(e.getValue(), format, formatCode, bundles);
+                this.formatPriceListMapping.forEach((formatKey,priceListValue) -> {
+                    if (formatKey.equals(formatCode)) {
+                        updatePriceList(priceListValue, format, formatCode, bundles);
                     }
-                }
+                } );
             }
             inputPriceFile.close();
         } catch (IOException e) {
             LOGGER.severe(e.getMessage());
+        } finally {
+            LOGGER.info("Finish reading price list from file " + path);
         }
     }
 }

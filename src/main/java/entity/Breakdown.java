@@ -2,8 +2,9 @@ package entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 public class Breakdown {
     private int numberOfBundles;
@@ -12,6 +13,6 @@ public class Breakdown {
 
     @Override
     public String toString() {
-        return (" " + numberOfBundles + " x " + bundleUnit + " $" + subTotal + "\n");
+        return (" " + numberOfBundles + " x " + bundleUnit + " $" + subTotal);
     }
 }

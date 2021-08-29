@@ -1,6 +1,7 @@
 package service;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +18,7 @@ public class BundleComboCalculatorTest {
     }
 
     @Test
+    @DisplayName("Test algorithm to get minimal bundles")
     void testBundleComboCalculator(){
         bundleComboCalculator.setTargetAmount(13);
         bundleComboCalculator.setAmounts(Arrays.asList(new Integer[]{3, 5, 9}));

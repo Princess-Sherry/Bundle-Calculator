@@ -2,39 +2,43 @@ package service;
 
 import entity.Breakdown;
 import entity.Report;
+import lombok.Getter;
 
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+@Getter
 public class ReportService {
     private ArrayList<Report> reports = new ArrayList<Report>();
     private final static Logger LOGGER = Logger.getLogger(OrderService.class.getName());
 
     public void calculateAndPrintCost(OrderService os, PriceListService ps) {
-        for (Map.Entry<String, Integer> order : os.getOrders().entrySet()) {
-            LOGGER.info("Calculating costs for order " + order.toString());
-            int targetAmount = order.getValue();
-            String formatCode = order.getKey();
-            HashMap<Integer, Double> bundles = ps.getFormatPriceListMapping().get(order.getKey()).getBundles();
-            List<Integer> amounts = bundles.keySet().stream().collect(Collectors.toList());
-            calculateCost(targetAmount, amounts, bundles, formatCode);
-        }
+        os.getOrders().forEach((orderFormatKey,targetAmountValue) -> {
+            LOGGER.info("Calculating costs for order " + targetAmountValue + " " + orderFormatKey);
+            ps.getFormatPriceListMapping().forEach((formatCodeKey,priceList) -> {
+                if (orderFormatKey.equals(formatCodeKey)) {
+                    calculateCost(orderFormatKey,targetAmountValue,priceList.getBundles());
+                }
+            });
+        });
         LOGGER.info("Print report to show costs for the orders");
         reports.forEach((report -> System.out.print(report.toString())));
     }
 
-    private void calculateCost(int targetAmount, List<Integer> amounts, HashMap<Integer, Double> bundles, String formatCode) {
-        double totalCost = 0;
+    private void calculateCost(String formatCode, int targetAmount, HashMap<Integer,Double> bundles) {
+        List<Integer> amounts = bundles.keySet().stream().collect(Collectors.toList());
+        HashMap<Integer, Integer> bundleCombination = new BundleComboCalculator(targetAmount,amounts).getBundleCombination();
+
         ArrayList<Breakdown> breakdowns = new ArrayList<Breakdown>();
-        BundleComboCalculator bundleComboCalculator = new BundleComboCalculator(targetAmount,amounts);
-        HashMap<Integer, Integer> bundleCombination = bundleComboCalculator.getBundleCombination();
-        for(Map.Entry<Integer,Integer> bundleCombo: bundleCombination.entrySet()) {
-            double subTotal = bundleCombo.getValue() * bundles.get(bundleCombo.getKey());
-            breakdowns.add(new Breakdown(bundleCombo.getValue(),bundleCombo.getKey(),subTotal));
-            totalCost = totalCost + subTotal;
-        }
+        bundleCombination.forEach((bundleUnit,amount) -> {
+            double subTotal = amount * bundles.get(bundleUnit);
+            breakdowns.add(new Breakdown(amount,bundleUnit,subTotal));
+        });
         breakdowns.sort(Comparator.comparing(Breakdown::getBundleUnit).reversed());
+
+        double totalCost = breakdowns.stream().mapToDouble(Breakdown::getSubTotal).sum();
+
         reports.add(new Report(targetAmount,formatCode,totalCost,breakdowns));
     }
 }
