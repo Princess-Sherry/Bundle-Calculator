@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+/**
+ * This PriceListService Class is to handle the price lists from social media influencers.
+ */
 @Getter
 public class PriceListService {
     private final static Logger LOGGER = Logger.getLogger(PriceListService.class.getName());
@@ -37,6 +40,10 @@ public class PriceListService {
         }
     }
 
+    /**
+     * Import and store the price lists from file
+     * @param path price list file path
+     */
     public void updatePriceListFromFile(String path){
         LOGGER.info("Start reading price list from file " + path);
         initialiseFormatPriceListMap();

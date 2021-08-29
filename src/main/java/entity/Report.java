@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 
+/**
+ * A class for each report of total cost and cost breakdown for a certain type of order
+ */
 @Getter @Setter
 @AllArgsConstructor
 public class Report {

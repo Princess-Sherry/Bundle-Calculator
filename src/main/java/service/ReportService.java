@@ -8,11 +8,19 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/**
+ * This ReportService Class is to run the calculation and then print out the cost reports
+ */
 @Getter
 public class ReportService {
     private ArrayList<Report> reports = new ArrayList<Report>();
     private final static Logger LOGGER = Logger.getLogger(OrderService.class.getName());
 
+    /**
+     * Calculate total cost and sub-costs according to orders and price lists input given, then print out reports
+     * @param os orders input
+     * @param ps price lists input
+     */
     public void calculateAndPrintCost(OrderService os, PriceListService ps) {
         os.getOrders().forEach((orderFormatKey,targetAmountValue) -> {
             LOGGER.info("Calculating costs for order " + targetAmountValue + " " + orderFormatKey);

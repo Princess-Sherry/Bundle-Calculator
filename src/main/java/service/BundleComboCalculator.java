@@ -6,12 +6,19 @@ import lombok.Setter;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * A calculator to get the bundle combinations to achieve minimal bundles
+ */
 @AllArgsConstructor
 @Setter
 public class BundleComboCalculator {
     private int targetAmount;
     private List<Integer> amounts;
 
+    /**
+     * Algorithm to achieve minimal bundles
+     * @return bundle combinations
+     */
     public HashMap<Integer, Integer> getBundleCombination(){
         int[] minStorage = new int[targetAmount + 1];
         int[] minPath = new int[targetAmount + 1];

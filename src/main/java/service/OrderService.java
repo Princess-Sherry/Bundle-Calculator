@@ -8,11 +8,18 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
+/**
+ * This OrderService Class is to handle customer's orders input
+ */
 @Getter
 public class OrderService {
     private final static Logger LOGGER = Logger.getLogger(OrderService.class.getName());
     private LinkedHashMap<String, Integer> orders = new LinkedHashMap<String, Integer>();
 
+    /**
+     * Import and store the orders input from file
+     * @param path orders file path
+     */
     public void loadOrderFile(String path)  {
         LOGGER.info("Start reading orders from file " + path);
         BufferedReader input = null;
