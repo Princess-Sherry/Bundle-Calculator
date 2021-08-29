@@ -12,8 +12,9 @@ The calculator is to be run with two parameters.
 * Parameter One: the file path of social media influencer's price lists (.txt file) 
 * Parameter Two: the file path of the customer's orders (.txt file)
 ### Default files
-There are default files for the calculator, which is already preset.
-All you need to do is to run the calculator by clicking run in the IDE.
+There are default files for the calculator. Please add the path of these two files as the parameters in your IDE.
+* Parameter One: src/main/resources/priceList.txt
+* Parameter Two: src/main/resources/orders.txt
 ### Run with your own files
 You can use your own files to run the calculator.
 * First compile all the .java files.
