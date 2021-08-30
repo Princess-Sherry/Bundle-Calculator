@@ -16,8 +16,14 @@ public class BundleCalculator {
      */
     public static void main(String[] args) {
         BundleCalculator bc = new BundleCalculator();
-        bc.ps.updatePriceListFromFile(args[0]);
-        bc.os.loadOrderFile(args[1]);
+        String priceListFilePath = "src/main/resources/priceList.txt";
+        String orderFilePath = "src/main/resources/orders.txt";
+        if (args.length == 2) {
+            priceListFilePath = args[0];
+            orderFilePath = args[1];
+        }
+        bc.ps.updatePriceListFromFile(priceListFilePath);
+        bc.os.loadOrderFile(orderFilePath);
         bc.rs.calculateAndPrintCost(bc.os, bc.ps);
     }
 }
