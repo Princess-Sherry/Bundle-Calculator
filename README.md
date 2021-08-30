@@ -7,19 +7,24 @@ the influencer to provide their price lists on the basis of bundle for each form
 provided by social media influencers, given a brands order, the user can calculate the cost and bundle breakdown for 
 each format.
 
-## How to use the calculator
-The calculator is to be run with two parameters.
-* Parameter One: the file path of social media influencer's price lists (.txt file) 
-* Parameter Two: the file path of the customer's orders (.txt file)
-### Default files
-There are default files for the calculator. Please add the path of these two files as the parameters in your IDE.
-* Parameter One: src/main/resources/priceList.txt
-* Parameter Two: src/main/resources/orders.txt
-### Run with your own files
-You can use your own files to run the calculator.
-* First compile all the .java files.
-* Then run the following command:
-```
-java BundleCalculator <the path of your price lists file> <the path of your orders file>
-```
+## How to build project
+
+You can use gradle wrapper to build the project.
+
+```./gradlew build```
+
+## How to run project
+After you build the project, you can run the command to see the output report in stdout with default file paths.
+
+```./gradlew run```
+
+You can overwrite price list file and order file paths by providing arguments.
+
+```./gradlew run --args="<the path of your price lists file> <the path of your orders file>"```
+
+## How to run test cases
+
+Any changes made needs make sure all tests passed. Run this command to see the results of unit testing.
+
+```./gradlew test```
 
