@@ -1,1 +1,3 @@
-10 Img
+35 IMG
+38 FLAC
+30 VID

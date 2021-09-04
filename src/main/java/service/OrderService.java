@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 @Getter
 public class OrderService {
     private final static Logger LOGGER = Logger.getLogger(OrderService.class.getName());
-    private LinkedHashMap<String, Integer> orders = new LinkedHashMap<String, Integer>();
+    private final LinkedHashMap<String, Integer> orders = new LinkedHashMap<>();
 
     /**
      * Import and store the orders input from file
@@ -22,7 +22,7 @@ public class OrderService {
      */
     public void loadOrderFile(String path)  {
         LOGGER.info("Start reading orders from file " + path);
-        BufferedReader input = null;
+        BufferedReader input;
         try {
             String line;
             input = new BufferedReader(new FileReader(path));

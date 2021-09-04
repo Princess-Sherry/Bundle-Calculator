@@ -6,9 +6,9 @@ import service.ReportService;
  * Main interface for the Bundle Calculator
  */
 public class BundleCalculator {
-    private OrderService os = new OrderService();
-    private PriceListService ps = new PriceListService();
-    private ReportService rs = new ReportService();
+    private final OrderService os = new OrderService();
+    private final PriceListService ps = new PriceListService();
+    private final ReportService rs = new ReportService();
 
     /**
      * Main method to run the bundle calculator

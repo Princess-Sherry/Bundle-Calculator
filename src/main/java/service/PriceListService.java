@@ -21,7 +21,7 @@ public class PriceListService {
     private ImagePriceList imagePriceList = new ImagePriceList();
     private AudioPriceList audioPriceList = new AudioPriceList();
     private VideoPriceList videoPriceList = new VideoPriceList();
-    private HashMap<String, BasePriceList> formatPriceListMapping = new HashMap<>();
+    private final HashMap<String, BasePriceList> formatPriceListMapping = new HashMap<>();
 
     private void initialiseFormatPriceListMap() {
         PriceListService ps = new PriceListService();
@@ -47,7 +47,7 @@ public class PriceListService {
     public void updatePriceListFromFile(String path){
         LOGGER.info("Start reading price list from file " + path);
         initialiseFormatPriceListMap();
-        BufferedReader inputPriceFile = null;
+        BufferedReader inputPriceFile;
         try {
             inputPriceFile = new BufferedReader(new FileReader(path));
             inputPriceFile.readLine();

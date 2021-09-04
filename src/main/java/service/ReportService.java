@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 @Getter
 public class ReportService {
-    private ArrayList<Report> reports = new ArrayList<Report>();
+    private final ArrayList<Report> reports = new ArrayList<>();
     private final static Logger LOGGER = Logger.getLogger(OrderService.class.getName());
 
     /**
@@ -38,7 +38,7 @@ public class ReportService {
         List<Integer> amounts = bundles.keySet().stream().collect(Collectors.toList());
         HashMap<Integer, Integer> bundleCombination = new BundleComboCalculator(targetAmount,amounts).getBundleCombination();
 
-        ArrayList<Breakdown> breakdowns = new ArrayList<Breakdown>();
+        ArrayList<Breakdown> breakdowns = new ArrayList<>();
         bundleCombination.forEach((bundleUnit,amount) -> {
             double subTotal = amount * bundles.get(bundleUnit);
             breakdowns.add(new Breakdown(amount,bundleUnit,subTotal));

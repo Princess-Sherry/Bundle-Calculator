@@ -10,7 +10,7 @@ import java.util.HashMap;
  */
 @Setter @Getter
 public class BasePriceList {
-    private HashMap<Integer, Double> bundles = new HashMap<Integer, Double>();
+    private HashMap<Integer, Double> bundles = new HashMap<>();
     private String format;
     private String formatCode;
 

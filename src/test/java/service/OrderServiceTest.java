@@ -27,8 +27,6 @@ public class OrderServiceTest {
     @DisplayName("Test order file with invalid content")
     void testLoadOrderFileWithInvalidContent() {
         String invalidContentPath = "src/test/resources/ordersTestInvalidContent.txt";
-        assertThrows(ArrayIndexOutOfBoundsException.class, ()->{
-            os.loadOrderFile(invalidContentPath);
-        });
+        assertThrows(ArrayIndexOutOfBoundsException.class, ()-> os.loadOrderFile(invalidContentPath));
     }
 }

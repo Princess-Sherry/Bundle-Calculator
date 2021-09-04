@@ -26,4 +26,14 @@ public class BundleComboCalculatorTest {
         assertEquals(1,result.get(3));
         assertEquals(2,result.get(5));
     }
+
+    @Test
+    @DisplayName("Test bundle calculator with unachievable regular bundle combo")
+    void testBundleComboCalculatorWithUnachievableRegularBundleCombo() {
+        bundleComboCalculator.setTargetAmount(7);
+        bundleComboCalculator.setAmounts(Arrays.asList(new Integer[]{3, 5, 9}));
+        HashMap<Integer,Integer> result = bundleComboCalculator.getBundleCombination();
+        assertEquals(1,result.get(3));
+        assertEquals(1,result.get(5));
+    }
 }
