@@ -4,7 +4,8 @@
 public class BundleCalculator {
     private final OrderService os = new OrderService();
     private final BundleService bs = new BundleService();
-    private final ReportService rs = new ReportService();
+    private final CalculationService cs = new CalculationService();
+    private ReportService rs = new ReportService();
 
     /**
      * Main method to run the bundle calculator
@@ -20,6 +21,7 @@ public class BundleCalculator {
         }
         bc.bs.updatePriceListFromFile(priceListFilePath);
         bc.os.loadOrderFile(orderFilePath);
-        bc.rs.calculateAndPrintCost(bc.os, bc.bs);
+        bc.rs = bc.cs.calculateCost(bc.os, bc.bs);
+        bc.rs.printReports();
     }
 }
