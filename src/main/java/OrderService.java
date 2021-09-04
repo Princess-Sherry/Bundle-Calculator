@@ -1,5 +1,3 @@
-package service;
-
 import lombok.Getter;
 
 import java.io.BufferedReader;
