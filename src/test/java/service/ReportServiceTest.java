@@ -17,7 +17,7 @@ public class ReportServiceTest {
     @Test
     @DisplayName("Test calculate and print cost method")
     void testCalculateAndPrintCost() {
-        PriceListService ps = new PriceListService();
+        BundleService ps = new BundleService();
         ps.updatePriceListFromFile("src/test/resources/priceListTest.txt");
         OrderService os = new OrderService();
         os.loadOrderFile("src/test/resources/ordersTestValidContent.txt");

@@ -1,6 +1,7 @@
 package service;
 
 import entity.Breakdown;
+import entity.BundleItem;
 import entity.Report;
 import lombok.Getter;
 
@@ -17,16 +18,16 @@ public class ReportService {
     private final static Logger LOGGER = Logger.getLogger(OrderService.class.getName());
 
     /**
-     * Calculate total cost and sub-costs according to orders and price lists input given, then print out reports
+     * Calculate total cost and sub-costs according to orders and bundle prices input given, then print out reports
      * @param os orders input
-     * @param ps price lists input
+     * @param bs bundle prices input
      */
-    public void calculateAndPrintCost(OrderService os, PriceListService ps) {
+    public void calculateAndPrintCost(OrderService os, BundleService bs) {
         os.getOrders().forEach((orderFormatKey,targetAmountValue) -> {
             LOGGER.info("Calculating costs for order " + targetAmountValue + " " + orderFormatKey);
-            ps.getFormatPriceListMapping().forEach((formatCodeKey,priceList) -> {
-                if (orderFormatKey.equals(formatCodeKey)) {
-                    calculateCost(orderFormatKey,targetAmountValue,priceList.getBundles());
+            bs.getBundles().forEach((bundle) -> {
+                if (bundle.getFormatCode().equals(orderFormatKey)) {
+                    calculateCost(orderFormatKey,targetAmountValue,bundle.getBundleItems());
                 }
             });
         });
@@ -34,15 +35,21 @@ public class ReportService {
         reports.forEach((report -> System.out.print(report.toString())));
     }
 
-    private void calculateCost(String formatCode, int targetAmount, HashMap<Integer,Double> bundles) {
-        List<Integer> amounts = bundles.keySet().stream().collect(Collectors.toList());
+    private void calculateCost(String formatCode, int targetAmount, ArrayList<BundleItem> bundleItems) {
+        List<Integer> amounts = bundleItems.stream().map(b -> b.getBundleVolume()).collect(Collectors.toList());
         HashMap<Integer, Integer> bundleCombination = new BundleComboCalculator(targetAmount,amounts).getBundleCombination();
 
         ArrayList<Breakdown> breakdowns = new ArrayList<>();
         bundleCombination.forEach((bundleUnit,amount) -> {
-            double subTotal = amount * bundles.get(bundleUnit);
-            breakdowns.add(new Breakdown(amount,bundleUnit,subTotal));
+            bundleItems.forEach(bundleItem -> {
+                if (bundleItem.getBundleVolume() == bundleUnit) {
+                    double price = bundleItem.getPrice();
+                    double subTotal = amount * price;
+                    breakdowns.add(new Breakdown(amount,bundleUnit,subTotal));
+                }
+            });
         });
+
         breakdowns.sort(Comparator.comparing(Breakdown::getBundleUnit).reversed());
 
         double totalCost = breakdowns.stream().mapToDouble(Breakdown::getSubTotal).sum();

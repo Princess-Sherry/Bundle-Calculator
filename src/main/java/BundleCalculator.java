@@ -1,5 +1,5 @@
 import service.OrderService;
-import service.PriceListService;
+import service.BundleService;
 import service.ReportService;
 
 /**
@@ -7,7 +7,7 @@ import service.ReportService;
  */
 public class BundleCalculator {
     private final OrderService os = new OrderService();
-    private final PriceListService ps = new PriceListService();
+    private final BundleService bs = new BundleService();
     private final ReportService rs = new ReportService();
 
     /**
@@ -22,8 +22,8 @@ public class BundleCalculator {
             priceListFilePath = args[0];
             orderFilePath = args[1];
         }
-        bc.ps.updatePriceListFromFile(priceListFilePath);
+        bc.bs.updatePriceListFromFile(priceListFilePath);
         bc.os.loadOrderFile(orderFilePath);
-        bc.rs.calculateAndPrintCost(bc.os, bc.ps);
+        bc.rs.calculateAndPrintCost(bc.os, bc.bs);
     }
 }

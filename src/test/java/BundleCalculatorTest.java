@@ -2,7 +2,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import service.OrderService;
-import service.PriceListService;
+import service.BundleService;
 import service.ReportService;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,7 +18,7 @@ public class BundleCalculatorTest {
     @Test
     @DisplayName("Test bundle calculator")
     void testMain() {
-        PriceListService ps = new PriceListService();
+        BundleService ps = new BundleService();
         ps.updatePriceListFromFile("src/test/resources/priceListTest.txt");
         OrderService os = new OrderService();
         os.loadOrderFile("src/test/resources/ordersTestValidContent.txt");

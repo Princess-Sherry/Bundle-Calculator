@@ -6,19 +6,19 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PriceListServiceTest {
-    PriceListService ps;
+public class BundleServiceTest {
+    BundleService bs;
 
     @BeforeEach
     void setup() {
-        ps = new PriceListService();
+        bs = new BundleService();
     }
 
     @Test
-    @DisplayName("Test priceList file")
+    @DisplayName("Test bundle prices file")
     void testUpdatePriceListFromFile() {
         String invalidPath = "src/test/resources/priceListTest.txt";
-        ps.updatePriceListFromFile(invalidPath);
-        assertEquals(3, ps.getFormatPriceListMapping().size());
+        bs.updatePriceListFromFile(invalidPath);
+        assertEquals(3, bs.getBundles().size());
     }
 }
