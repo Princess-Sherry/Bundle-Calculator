@@ -27,15 +27,13 @@ public class OrderService {
             while ((line = input.readLine()) != null && !line.equals("")) {
                 String[] lineSplit = line.split(" ");
                 if (lineSplit.length != 2) { throw new DataFormatException(); }
-                if (!bs.getBundles().stream().anyMatch(bundle -> bundle.getFormatCode().equals(lineSplit[1]))) {
-                    List<String> validFormats = bs.getBundles().stream().map(bundle -> bundle.getFormatCode()).collect(Collectors.toList());
-                    throw new DataFormatException("Format " + lineSplit[1] + " is not supported. We only support the following formats: " + validFormats.toString());
+                if (bs.getBundles().stream().noneMatch(bundle -> bundle.getFormatCode().equals(lineSplit[1]))) {
+                    List<String> validFormats = bs.getBundles().stream().map(Bundle::getFormatCode).collect(Collectors.toList());
+                    throw new DataFormatException("Format " + lineSplit[1] + " is not supported. We only support the following formats: " + validFormats);
                 }
                 this.orders.put(lineSplit[1].toUpperCase(), Integer.parseInt(lineSplit[0]));
             }
             input.close();
-        } catch (FileNotFoundException e) {
-            throw new DataAccessException(e.getMessage());
         } catch (IOException e) {
             throw new DataAccessException(e.getMessage());
         } catch (DataFormatException e) {

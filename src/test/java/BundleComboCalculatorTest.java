@@ -19,7 +19,7 @@ public class BundleComboCalculatorTest {
     @DisplayName("Test algorithm with achievable regular bundle combo")
     public void testBundleComboCalculatorWithAchievableRegularBundleCombo() {
         bundleComboCalculator.setTargetAmount(13);
-        bundleComboCalculator.setAmounts(Arrays.asList(new Integer[]{3, 5, 9}));
+        bundleComboCalculator.setAmounts(Arrays.asList(3, 5, 9));
         HashMap<Integer,Integer> result = bundleComboCalculator.getBundleCombination();
         assertEquals(1,result.get(3));
         assertEquals(2,result.get(5));
@@ -29,7 +29,7 @@ public class BundleComboCalculatorTest {
     @DisplayName("Test algorithm with unachievable regular bundle combo")
     public void testBundleComboCalculatorWithUnachievableRegularBundleCombo() {
         bundleComboCalculator.setTargetAmount(7);
-        bundleComboCalculator.setAmounts(Arrays.asList(new Integer[]{3, 5, 9}));
+        bundleComboCalculator.setAmounts(Arrays.asList(3, 5, 9));
         HashMap<Integer,Integer> result = bundleComboCalculator.getBundleCombination();
         assertEquals(1,result.get(3));
         assertEquals(1,result.get(5));
@@ -39,7 +39,7 @@ public class BundleComboCalculatorTest {
     @DisplayName("Test algorithm with target amount less than the minimum bundle size")
     public void testBundleComboCalculatorWithTargetAmountLessThanMinimumBundleSize() {
         bundleComboCalculator.setTargetAmount(4);
-        bundleComboCalculator.setAmounts(Arrays.asList(new Integer[]{5, 10}));
+        bundleComboCalculator.setAmounts(Arrays.asList(5, 10));
         HashMap<Integer,Integer> result = bundleComboCalculator.getBundleCombination();
         assertEquals(1,result.get(5));
     }

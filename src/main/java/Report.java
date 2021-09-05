@@ -18,8 +18,8 @@ public class Report {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(orderAmount + " " + orderFormatCode + " $" + totalCost + "\n");
-        breakdowns.forEach(breakdown -> sb.append(breakdown + "\n"));
+        sb.append(orderAmount).append(" ").append(orderFormatCode).append(" $").append(totalCost).append("\n");
+        breakdowns.forEach(breakdown -> sb.append(breakdown).append("\n"));
         return sb.toString();
     }
 }

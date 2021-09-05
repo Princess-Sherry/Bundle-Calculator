@@ -5,11 +5,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BundleCalculatorTest {
-    private BundleCalculator bc;
 
     @BeforeEach
     public void setup() {
-        bc = new BundleCalculator();
+        BundleCalculator bc = new BundleCalculator();
     }
 
     @Test
@@ -23,6 +22,6 @@ public class BundleCalculatorTest {
         ReportService rs = cs.calculateCost(os,bs);
         rs.printReports();
         assertEquals(3,rs.getReports().size());
-        assertEquals(13027.5,rs.getReports().stream().mapToDouble(r -> r.getTotalCost()).sum());
+        assertEquals(13027.5,rs.getReports().stream().mapToDouble(Report::getTotalCost).sum());
     }
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 @Getter
 public class BundleService {
-    private ArrayList<Bundle> bundles = new ArrayList<>();
+    private final ArrayList<Bundle> bundles = new ArrayList<>();
 
     /**
      * Import and store the bundle prices from file
@@ -46,8 +46,6 @@ public class BundleService {
                 this.bundles.add(new Bundle(formatCode, bundleItems));
             }
             inputPriceFile.close();
-        } catch (FileNotFoundException e) {
-            throw new DataAccessException(e.getMessage());
         } catch (IOException e) {
             throw new DataAccessException(e.getMessage());
         } catch (DataFormatException e) {

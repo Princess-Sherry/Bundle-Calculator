@@ -43,10 +43,7 @@ public class BundleCalculator {
             LOGGER.info("Finish reading orders from file " + orderFilePath);
             bc.rs = bc.cs.calculateCost(bc.os, bc.bs);
             bc.rs.printReports();
-        } catch (DataFormatException e) {
-            LOGGER.severe(e.getMessage());
-            System.exit(0);
-        } catch (DataAccessException e) {
+        } catch (DataFormatException | DataAccessException e) {
             LOGGER.severe(e.getMessage());
             System.exit(0);
         }

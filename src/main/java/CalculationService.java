@@ -32,18 +32,16 @@ public class CalculationService {
     }
 
     private ArrayList<Breakdown> calculateSubCost(int targetAmount, ArrayList<BundleItem> bundleItems) {
-        List<Integer> amounts = bundleItems.stream().map(b -> b.getBundleVolume()).collect(Collectors.toList());
+        List<Integer> amounts = bundleItems.stream().map(BundleItem::getBundleVolume).collect(Collectors.toList());
         HashMap<Integer, Integer> bundleCombination = new BundleComboCalculator(targetAmount,amounts).getBundleCombination();
 
         ArrayList<Breakdown> breakdowns= new ArrayList<>();
-        bundleCombination.forEach((bundleUnit,amount) -> {
-            bundleItems.forEach(bundleItem -> {
-                if (bundleItem.getBundleVolume() == bundleUnit) {
-                    double subTotal = amount * bundleItem.getPrice();;
-                    breakdowns.add(new Breakdown(amount,bundleUnit,subTotal));
-                }
-            });
-        });
+        bundleCombination.forEach((bundleUnit,amount) -> bundleItems.forEach(bundleItem -> {
+            if (bundleItem.getBundleVolume() == bundleUnit) {
+                double subTotal = amount * bundleItem.getPrice();
+                breakdowns.add(new Breakdown(amount,bundleUnit,subTotal));
+            }
+        }));
 
         breakdowns.sort(Comparator.comparing(Breakdown::getBundleUnit).reversed());
         return breakdowns;

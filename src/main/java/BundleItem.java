@@ -4,6 +4,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class BundleItem {
-    private int bundleVolume;
-    private double price;
+    private final int bundleVolume;
+    private final double price;
 }
