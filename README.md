@@ -24,7 +24,7 @@ You can overwrite price list file and order file paths by providing arguments.
 
 ## How to run test cases
 
-Any changes made needs make sure all tests passed. Run this command to see the results of unit testing.
+Any changes made needs to make sure all tests passed. Run this command to see the results of unit testing.
 
 ```./gradlew test```
 

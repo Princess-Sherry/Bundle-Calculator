@@ -1,3 +1,5 @@
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -5,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.logging.Logger;
 
+@Getter
 public class CalculationService {
     private final static Logger LOGGER = Logger.getLogger(OrderService.class.getName());
     private final ReportService rs= new ReportService();

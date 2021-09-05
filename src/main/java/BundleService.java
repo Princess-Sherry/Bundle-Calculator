@@ -5,22 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
  * This BundleService Class is to handle the bundle prices input from social media influencers.
  */
 @Getter
 public class BundleService {
-    private final static Logger LOGGER = Logger.getLogger(BundleService.class.getName());
     private ArrayList<Bundle> bundles = new ArrayList<>();
 
     /**
      * Import and store the bundle prices from file
      * @param path bundle file path
      */
-    public void updatePriceListFromFile(String path) {
-        LOGGER.info("Start reading price list from file " + path);
+    public void updatePriceListFromFile(String path) throws DataFormatException, DataAccessException {
         BufferedReader inputPriceFile;
         try {
             inputPriceFile = new BufferedReader(new FileReader(path));
@@ -50,19 +47,13 @@ public class BundleService {
             }
             inputPriceFile.close();
         } catch (FileNotFoundException e) {
-            LOGGER.severe(e.getMessage());
-            System.exit(0);
+            throw new DataAccessException(e.getMessage());
         } catch (IOException e) {
-            LOGGER.severe(e.getMessage());
-            System.exit(0);
+            throw new DataAccessException(e.getMessage());
         } catch (DataFormatException e) {
-            LOGGER.severe(e.getMessage());
-            System.exit(0);
+            throw new DataFormatException(e.getMessage());
         } catch (NumberFormatException e) {
-            LOGGER.severe(e.getMessage() + ": invalid number format. Please refer to README for correct format.");
-            System.exit(0);
-        } finally {
-            LOGGER.info("Finish reading price list from file " + path);
+            throw new DataFormatException(e.getMessage() + ": invalid number format. Please refer to README for correct format.");
         }
     }
 }

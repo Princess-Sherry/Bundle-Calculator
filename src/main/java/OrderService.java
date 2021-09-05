@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -14,15 +13,13 @@ import java.util.stream.Collectors;
  */
 @Getter
 public class OrderService {
-    private final static Logger LOGGER = Logger.getLogger(OrderService.class.getName());
     private final LinkedHashMap<String, Integer> orders = new LinkedHashMap<>();
 
     /**
      * Import and store the orders input from file
      * @param path orders file path
      */
-    public void loadOrderFile(String path, BundleService bs)  {
-        LOGGER.info("Start reading orders from file " + path);
+    public void loadOrderFile(String path, BundleService bs) throws DataFormatException, DataAccessException {
         BufferedReader input;
         try {
             String line;
@@ -38,19 +35,13 @@ public class OrderService {
             }
             input.close();
         } catch (FileNotFoundException e) {
-            LOGGER.severe(e.getMessage());
-            System.exit(0);
+            throw new DataAccessException(e.getMessage());
         } catch (IOException e) {
-            LOGGER.severe(e.getMessage());
-            System.exit(0);
+            throw new DataAccessException(e.getMessage());
         } catch (DataFormatException e) {
-            LOGGER.severe(e.getMessage());
-            System.exit(0);
+            throw new DataFormatException(e.getMessage());
         } catch (NumberFormatException e) {
-            LOGGER.severe(e.getMessage() + ": invalid number format. Order amount must be integer.");
-            System.exit(0);
-        } finally {
-            LOGGER.info("Finish reading orders from file " + path);
+            throw new DataFormatException(e.getMessage() + ": invalid number format. Order amount must be integer.");
         }
     }
 }

@@ -5,16 +5,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BreakdownTest {
-    Breakdown breakdown;
+    private Breakdown breakdown;
 
     @BeforeEach
-    void setUp(){
+    public void setUp(){
         breakdown = new Breakdown(0,0,0);
     }
 
     @Test
     @DisplayName("Test breakdown toString")
-    void testToString(){
+    public void testToString() {
         breakdown.setNumberOfBundles(2);
         breakdown.setBundleUnit(3);
         breakdown.setSubTotal(500);

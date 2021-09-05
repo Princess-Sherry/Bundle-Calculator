@@ -16,7 +16,6 @@ public class BundleComboCalculator {
 
     /**
      * Algorithm to achieve minimal bundles
-     *
      * @return bundle combinations
      */
     public HashMap<Integer, Integer> getBundleCombination() {

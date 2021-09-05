@@ -5,22 +5,23 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BundleCalculatorTest {
-    BundleCalculator bc;
+    private BundleCalculator bc;
 
     @BeforeEach
-    void setup() {
+    public void setup() {
         bc = new BundleCalculator();
     }
 
     @Test
     @DisplayName("Test bundle calculator")
-    void testMain() {
-        BundleService ps = new BundleService();
-        ps.updatePriceListFromFile("src/test/resources/bundlesTestValidContent.txt");
+    public void testMain() throws DataFormatException, DataAccessException {
+        BundleService bs = new BundleService();
+        bs.updatePriceListFromFile("src/test/resources/bundlesTestValidContent.txt");
         OrderService os = new OrderService();
-        os.loadOrderFile("src/test/resources/ordersTestValidContent.txt");
-        ReportService rs = new ReportService();
-        rs.calculateAndPrintCost(os,ps);
+        os.loadOrderFile("src/test/resources/ordersTestValidContent.txt", bs);
+        CalculationService cs = new CalculationService();
+        ReportService rs = cs.calculateCost(os,bs);
+        rs.printReports();
         assertEquals(3,rs.getReports().size());
         assertEquals(13027.5,rs.getReports().stream().mapToDouble(r -> r.getTotalCost()).sum());
     }
