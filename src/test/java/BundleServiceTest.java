@@ -15,7 +15,7 @@ public class BundleServiceTest {
     @Test
     @DisplayName("Test bundle prices file")
     void testUpdatePriceListFromFile() {
-        String invalidPath = "src/test/resources/priceListTest.txt";
+        String invalidPath = "src/test/resources/bundlesTestValidContent.txt";
         bs.updatePriceListFromFile(invalidPath);
         assertEquals(3, bs.getBundles().size());
     }

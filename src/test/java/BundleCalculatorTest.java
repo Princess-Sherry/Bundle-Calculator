@@ -16,7 +16,7 @@ public class BundleCalculatorTest {
     @DisplayName("Test bundle calculator")
     void testMain() {
         BundleService ps = new BundleService();
-        ps.updatePriceListFromFile("src/test/resources/priceListTest.txt");
+        ps.updatePriceListFromFile("src/test/resources/bundlesTestValidContent.txt");
         OrderService os = new OrderService();
         os.loadOrderFile("src/test/resources/ordersTestValidContent.txt");
         ReportService rs = new ReportService();
