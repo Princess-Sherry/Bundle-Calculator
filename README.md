@@ -51,7 +51,7 @@ Video | VID | 3 @ $570 5 @ $900 9 @ $1530
 
 ## Format of orders file
 * Your orders file should be a .txt file.
-* Two columns are required without header. First column is the order amount. Second column is the order format.
+* The file must have two columns without header. First column is the order amount. Second column is the order format.
 ###Example of orders file format:
 ```
 10 IMG  

@@ -1,8 +1,12 @@
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.logging.Logger;
 
 /**
  * Main interface for the Bundle Calculator
  */
+@Getter @Setter
 public class BundleCalculator {
     private final static Logger LOGGER = Logger.getLogger(OrderService.class.getName());
     private final OrderService os = new OrderService();
