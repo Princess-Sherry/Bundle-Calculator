@@ -23,6 +23,16 @@ test {
     testLogging {
         events "PASSED", "SKIPPED", "FAILED"
     }
+    filter {
+        includeTestsMatching("BreakdownTest")
+        includeTestsMatching("BundleCalculatorTest")
+        includeTestsMatching("BundleComboCalculatorTest")
+        includeTestsMatching("BundleServiceTest")
+        includeTestsMatching("CalculationServiceTest")
+        includeTestsMatching("OrderServiceTest")
+        includeTestsMatching("ReportServiceTest")
+        includeTestsMatching("ReportTest")
+    }
 }
 
 jar {
