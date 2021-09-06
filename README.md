@@ -60,7 +60,8 @@ Example of orders file format:
 13 VID
 ```
 
-##Expected Output
+##Expected Output  
+
 The output of the Bundle Calculator will be printed in console. The following are the expected reports given the bundle prices and orders above.  
 ```
 10 IMG $800
