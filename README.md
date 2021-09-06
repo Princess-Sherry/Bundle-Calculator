@@ -40,7 +40,7 @@ If you need to run a specific test, you can choose the test and click run in you
 * Second line should be a divider line such as "----".
 * Starting from the third line, you should list the price information, divided by "|".
 
-###Example of bundle prices file format:  
+Example of bundle prices file format:  
 ```
 Submission format | Format code | Bundles  
 ----------------- | ----------- | -------  
@@ -52,7 +52,8 @@ Video | VID | 3 @ $570 5 @ $900 9 @ $1530
 ## Format of orders file
 * Your orders file should be a .txt file.
 * The file must have two columns without header. First column is the order amount. Second column is the order format.
-###Example of orders file format:
+
+Example of orders file format:
 ```
 10 IMG  
 15 FLAC  
