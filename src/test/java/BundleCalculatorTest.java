@@ -9,14 +9,12 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BundleCalculatorTest {
-    private BundleCalculator bundleCalculator;
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
 
     @BeforeEach
     public void setup() {
-        bundleCalculator = new BundleCalculator();
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
@@ -25,7 +23,7 @@ public class BundleCalculatorTest {
     public void testMain() {
         String bundleFilePath = "src/test/resources/bundlesTestValidContent.txt";
         String orderFilePath = "src/test/resources/ordersTestValidContent.txt";
-        bundleCalculator.main(new String[]{bundleFilePath, orderFilePath});
+        BundleCalculator.main(new String[]{bundleFilePath, orderFilePath});
         assertTrue(outputStreamCaptor.toString().contains("2850.0"));
         assertTrue(outputStreamCaptor.toString().contains("5017.5"));
         assertTrue(outputStreamCaptor.toString().contains("5160.0"));

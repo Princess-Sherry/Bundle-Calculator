@@ -58,15 +58,12 @@ public class BundleCalculator {
             ReportService reportService = new ReportService();
             reportService.printReports(bundleCombos);
 
-        } catch (DataFormatException e) {
+        } catch (DataFormatException | IOException e) {
             LOGGER.severe(e.getMessage());
+            e.printStackTrace();
             System.exit(0);
         } catch (NumberFormatException e) {
             LOGGER.severe(e.getMessage() + ": invalid number format.");
-            e.printStackTrace();
-            System.exit(0);
-        } catch (IOException e) {
-            LOGGER.severe(e.getMessage());
             e.printStackTrace();
             System.exit(0);
         }
