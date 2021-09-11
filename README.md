@@ -1,5 +1,5 @@
 # Bundle-Calculator
-This Bundle Calculator is for the user to determine the cost and bundle breakdown given a brands order.
+This Bundle Calculator is for the user to determine the costs and bundle breakdowns given a brands order.
 
 ## Description
 Social media influencers are basing the price of their social media post on a single post basis. Now the company allows 
@@ -62,7 +62,7 @@ Video | VID | 3 @ $570 5 @ $900 9 @ $1530
 
 
 ## Expected Output    
-The output of the Bundle Calculator will be printed in console. The following are the expected reports given the bundle prices and orders above.  
+The output of the entities.Bundle Calculator will be printed in console. The following are the expected reports given the bundle prices and orders above.  
 ```
 10 IMG $800
   1 x 10 $800

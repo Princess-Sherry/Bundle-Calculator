@@ -1,7 +1,12 @@
+import entities.Bundle;
+import exceptions.DataFormatException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import services.BundleService;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,29 +15,29 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BundleServiceTest {
     private final static Logger LOGGER = Logger.getLogger(BundleService.class.getName());
-    private BundleService bs;
+    private BundleService bundleService;
 
     @BeforeEach
     public void setup() {
-        bs = new BundleService();
+        bundleService = new BundleService();
     }
 
     @Test
     @DisplayName("Test import bundle file with valid content")
-    public void testUpdatePriceListFromFileWithValidContent() throws DataFormatException, DataAccessException {
+    public void testUpdatePriceListFromFileWithValidContent() throws DataFormatException, IOException {
         String validPath = "src/test/resources/bundlesTestValidContent.txt";
-        bs.updatePriceListFromFile(validPath);
-        assertEquals(3, bs.getBundles().size());
+        List<Bundle> bundles = bundleService.loadBundleFile(validPath);
+        assertEquals(3, bundles.size());
     }
 
     @Test
     @DisplayName("Test import bundle file with invalid file path")
     public void testUpdatePriceListFromFileWithInvalidFilePath() {
-        DataAccessException thrown = assertThrows(
-                DataAccessException.class,
+        IOException thrown = assertThrows(
+                IOException.class,
                 () -> {
                     String invalidPath = "sr/test/resources/bundlesTestValidContent.txt";
-                    bs.updatePriceListFromFile(invalidPath);
+                    bundleService.loadBundleFile(invalidPath);
                 }
         );
         LOGGER.severe(thrown.getMessage());
@@ -46,11 +51,11 @@ public class BundleServiceTest {
                 DataFormatException.class,
                 () -> {
                     String invalidPath = "src/test/resources/bundlesTestWithoutHeader.txt";
-                    bs.updatePriceListFromFile(invalidPath);
+                    bundleService.loadBundleFile(invalidPath);
                 }
         );
         LOGGER.severe(thrown.getMessage());
-        assertTrue(thrown.getMessage().contains("File data is not in the correct format"));
+        assertTrue(thrown.getMessage().contains("Header"));
     }
 
     @Test
@@ -60,24 +65,24 @@ public class BundleServiceTest {
                 DataFormatException.class,
                 () -> {
                     String invalidPath = "src/test/resources/bundlesTestWithAlphabetInPrice.txt";
-                    bs.updatePriceListFromFile(invalidPath);
+                    bundleService.loadBundleFile(invalidPath);
                 }
         );
         LOGGER.severe(thrown.getMessage());
-        assertTrue(thrown.getMessage().contains("File data is not in the correct format"));
+        assertTrue(thrown.getMessage().contains("not in the correct format"));
     }
 
     @Test
     @DisplayName("Test import bundle file with invalid number format")
     public void testUpdatePriceListFromFileWithInvalidNumberFormat() {
-        DataFormatException thrown = assertThrows(
-                DataFormatException.class,
+        NumberFormatException thrown = assertThrows(
+                NumberFormatException.class,
                 () -> {
                     String invalidPath = "src/test/resources/bundlesTestWithNonIntegerForBundleVolume.txt";
-                    bs.updatePriceListFromFile(invalidPath);
+                    bundleService.loadBundleFile(invalidPath);
                 }
         );
         LOGGER.severe(thrown.getMessage());
-        assertTrue(thrown.getMessage().contains("invalid number format"));
+        assertTrue(thrown.getMessage().contains("For input"));
     }
 }
