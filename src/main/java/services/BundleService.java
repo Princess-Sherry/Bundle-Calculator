@@ -2,7 +2,6 @@ package services;
 
 import entities.Bundle;
 import entities.BundleItem;
-import exceptions.DataAccessException;
 import exceptions.DataFormatException;
 import lombok.Getter;
 
@@ -23,32 +22,31 @@ public class BundleService {
      * @param path bundle file path
      * @return bundle prices lists
      */
-    public List<Bundle> loadBundleFile(String path) throws DataFormatException, DataAccessException {
+    public List<Bundle> loadBundleFile(String path) throws DataFormatException, IOException, NumberFormatException {
         List<Bundle> bundles = new ArrayList<>();
 
-        BufferedReader inputPriceFile;
-        try {
-            inputPriceFile = new BufferedReader(new FileReader(path));
+        try (BufferedReader inputPriceFile = new BufferedReader(new FileReader(path))) {
             String firstLine = inputPriceFile.readLine();
             String secondLine = inputPriceFile.readLine();
             if (firstLine.matches(".*\\d.*") || secondLine.matches(".*\\d.*")) {
-                throw new DataFormatException();
+                throw new DataFormatException("Header is needed. Please check your file format.");
             }
+
             String line;
             while ((line = inputPriceFile.readLine()) != null && !line.equals("")) {
                 String[] lineSplit = line.split("\\|");
                 if (lineSplit.length != 3) {
-                    throw new DataFormatException();
+                    throw new DataFormatException("Bundle file format must be in three columns. Please check your file.");
                 }
 
                 String formatCode = lineSplit[1].trim().toUpperCase();
 
                 if (lineSplit[2].trim().matches(".*[a-zA-Z]+.*")) {
-                    throw new DataFormatException();
+                    throw new DataFormatException("Bundles are not in the correct format. Please check your file.");
                 }
                 String[] bundlesSplit = lineSplit[2].trim().split("[^0-9.']+");
                 if (bundlesSplit.length % 2 != 0) {
-                    throw new DataFormatException();
+                    throw new DataFormatException("Bundles are not in valid volume-price pair format. Please check your file.");
                 }
 
                 ArrayList<BundleItem> bundleItems = new ArrayList<>();
@@ -59,13 +57,6 @@ public class BundleService {
                 }
                 bundles.add(new Bundle(formatCode, bundleItems));
             }
-            inputPriceFile.close();
-        } catch (IOException e) {
-            throw new DataAccessException(e.getMessage());
-        } catch (DataFormatException e) {
-            throw new DataFormatException(e.getMessage());
-        } catch (NumberFormatException e) {
-            throw new DataFormatException(e.getMessage() + ": invalid number format. Please refer to README for correct format.");
         }
 
         return bundles;

@@ -1,7 +1,6 @@
 package services;
 
 import entities.Order;
-import exceptions.DataAccessException;
 import exceptions.DataFormatException;
 import lombok.Getter;
 
@@ -18,27 +17,22 @@ import java.util.List;
 public class OrderService {
     /**
      * Import the orders input from file from customer
+     *
      * @param path orders file path
      * @return orders
      */
-    public List<Order> loadOrderFile(String path) throws DataFormatException, DataAccessException {
+    public List<Order> loadOrderFile(String path) throws DataFormatException, IOException, NumberFormatException {
         List<Order> orders = new LinkedList<>();
-        BufferedReader input;
-        try {
+
+        try (BufferedReader input = new BufferedReader(new FileReader(path))) {
             String line;
-            input = new BufferedReader(new FileReader(path));
             while ((line = input.readLine()) != null && !line.equals("")) {
                 String[] lineSplit = line.split(" ");
-                if (lineSplit.length != 2) { throw new DataFormatException(); }
+                if (lineSplit.length != 2) {
+                    throw new DataFormatException("Orders file format must be in two columns. Please check your file.");
+                }
                 orders.add(new Order(Integer.parseInt(lineSplit[0]), lineSplit[1].toUpperCase()));
             }
-            input.close();
-        } catch (IOException e) {
-            throw new DataAccessException(e.getMessage());
-        } catch (DataFormatException e) {
-            throw new DataFormatException(e.getMessage());
-        } catch (NumberFormatException e) {
-            throw new DataFormatException(e.getMessage() + ": invalid number format. Order amount must be integer.");
         }
 
         return orders;

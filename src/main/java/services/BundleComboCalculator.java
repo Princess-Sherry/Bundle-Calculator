@@ -8,6 +8,7 @@ import java.util.*;
 public class BundleComboCalculator {
     /**
      * Algorithm to achieve minimal bundles
+     *
      * @return bundle combination
      */
     public HashMap<Integer, Integer> getCombo(int targetAmount, List<Integer> amounts) {
@@ -16,7 +17,7 @@ public class BundleComboCalculator {
             targetAmount = amounts.get(0);
         }
 
-        int maxAmount =  Collections.max(amounts);
+        int maxAmount = Collections.max(amounts);
 
         int[] minStorage = new int[targetAmount + maxAmount];
         int[] minPath = new int[targetAmount + maxAmount];
@@ -38,7 +39,7 @@ public class BundleComboCalculator {
         HashMap<Integer, Integer> combo = new LinkedHashMap<>();
         int s = targetAmount;
         while (s != 0 && s < minStorage.length) {
-            if(minStorage[s] == BIGINT){
+            if (minStorage[s] == BIGINT) {
                 s++;
             } else {
                 if (!combo.containsKey(minPath[s])) {

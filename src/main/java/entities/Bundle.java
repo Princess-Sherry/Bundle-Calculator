@@ -9,7 +9,8 @@ import java.util.ArrayList;
 /**
  * A class for each type of media and its related bundle items information
  */
-@Setter @Getter
+@Setter
+@Getter
 @AllArgsConstructor
 public class Bundle {
     private String formatCode;

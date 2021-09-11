@@ -1,13 +1,13 @@
 import entities.Bundle;
 import entities.BundleCombo;
 import entities.Order;
-import exceptions.DataAccessException;
 import exceptions.DataFormatException;
 import services.BundleService;
 import services.CalculationService;
 import services.OrderService;
 import services.ReportService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -58,8 +58,16 @@ public class BundleCalculator {
             ReportService reportService = new ReportService();
             reportService.printReports(bundleCombos);
 
-        } catch (DataFormatException | DataAccessException e) {
+        } catch (DataFormatException e) {
             LOGGER.severe(e.getMessage());
+            System.exit(0);
+        } catch (NumberFormatException e) {
+            LOGGER.severe(e.getMessage() + ": invalid number format.");
+            e.printStackTrace();
+            System.exit(0);
+        } catch (IOException e) {
+            LOGGER.severe(e.getMessage());
+            e.printStackTrace();
             System.exit(0);
         }
     }

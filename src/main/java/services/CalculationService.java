@@ -12,7 +12,8 @@ public class CalculationService {
 
     /**
      * Calculate the bundle combinations according to orders and bundle prices given, and their total costs and subtotal costs
-     * @param orders orders input
+     *
+     * @param orders  orders input
      * @param bundles bundle prices input
      * @return bundle combinations results with costs
      */
@@ -29,7 +30,7 @@ public class CalculationService {
                     HashMap<Integer, Integer> combo = bundleComboCalculator.getCombo(targetAmount, amounts);
 
                     List<BundleComboItem> bundleComboItems = new LinkedList<>();
-                    combo.forEach( (bundleUnit, number) -> bundle.getBundleItems().forEach(bundleItem -> {
+                    combo.forEach((bundleUnit, number) -> bundle.getBundleItems().forEach(bundleItem -> {
                         if (bundleUnit == bundleItem.getBundleVolume()) {
                             double subTotal = number * bundleItem.getPrice();
                             bundleComboItems.add(new BundleComboItem(number, bundleUnit, subTotal));
