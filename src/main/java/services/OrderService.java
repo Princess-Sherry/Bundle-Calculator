@@ -1,24 +1,28 @@
+package services;
+
+import entities.Order;
+import exceptions.DataAccessException;
+import exceptions.DataFormatException;
 import lombok.Getter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
- * This OrderService Class is to handle customer's orders input
+ * This services.OrderService Class is to handle customer's orders input
  */
 @Getter
 public class OrderService {
-    private final LinkedHashMap<String, Integer> orders = new LinkedHashMap<>();
-
     /**
-     * Import and store the orders input from file
+     * Import the orders input from file from customer
      * @param path orders file path
+     * @return orders
      */
-    public void loadOrderFile(String path, BundleService bs) throws DataFormatException, DataAccessException {
+    public List<Order> loadOrderFile(String path) throws DataFormatException, DataAccessException {
+        List<Order> orders = new LinkedList<>();
         BufferedReader input;
         try {
             String line;
@@ -26,11 +30,7 @@ public class OrderService {
             while ((line = input.readLine()) != null && !line.equals("")) {
                 String[] lineSplit = line.split(" ");
                 if (lineSplit.length != 2) { throw new DataFormatException(); }
-                if (bs.getBundles().stream().noneMatch(bundle -> bundle.getFormatCode().equals(lineSplit[1]))) {
-                    List<String> validFormats = bs.getBundles().stream().map(Bundle::getFormatCode).collect(Collectors.toList());
-                    throw new DataFormatException("Format " + lineSplit[1] + " is not supported. We only support the following formats: " + validFormats);
-                }
-                this.orders.put(lineSplit[1].toUpperCase(), Integer.parseInt(lineSplit[0]));
+                orders.add(new Order(Integer.parseInt(lineSplit[0]), lineSplit[1].toUpperCase()));
             }
             input.close();
         } catch (IOException e) {
@@ -40,5 +40,7 @@ public class OrderService {
         } catch (NumberFormatException e) {
             throw new DataFormatException(e.getMessage() + ": invalid number format. Order amount must be integer.");
         }
+
+        return orders;
     }
 }

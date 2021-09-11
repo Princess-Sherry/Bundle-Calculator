@@ -1,22 +1,31 @@
+package services;
+
+import entities.Bundle;
+import entities.BundleItem;
+import exceptions.DataAccessException;
+import exceptions.DataFormatException;
 import lombok.Getter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * This BundleService Class is to handle the bundle prices input from social media influencers.
+ * This services.BundleService Class is to handle the bundle prices input from social media influencers.
  */
 @Getter
 public class BundleService {
-    private final ArrayList<Bundle> bundles = new ArrayList<>();
-
     /**
-     * Import and store the bundle prices from file
+     * Import the bundle prices from file
+     *
      * @param path bundle file path
+     * @return bundle prices lists
      */
-    public void updatePriceListFromFile(String path) throws DataFormatException, DataAccessException {
+    public List<Bundle> loadBundleFile(String path) throws DataFormatException, DataAccessException {
+        List<Bundle> bundles = new ArrayList<>();
+
         BufferedReader inputPriceFile;
         try {
             inputPriceFile = new BufferedReader(new FileReader(path));
@@ -26,23 +35,29 @@ public class BundleService {
                 throw new DataFormatException();
             }
             String line;
-            while ((line = inputPriceFile.readLine()) != null && !line.equals("") ) {
+            while ((line = inputPriceFile.readLine()) != null && !line.equals("")) {
                 String[] lineSplit = line.split("\\|");
-                if (lineSplit.length != 3) { throw new DataFormatException(); }
+                if (lineSplit.length != 3) {
+                    throw new DataFormatException();
+                }
 
                 String formatCode = lineSplit[1].trim().toUpperCase();
 
-                if (lineSplit[2].trim().matches(".*[a-zA-Z]+.*")) { throw new DataFormatException(); }
-                String[] bundles = lineSplit[2].trim().split("[^0-9.']+");
-                if (bundles.length % 2 != 0) { throw new DataFormatException(); }
+                if (lineSplit[2].trim().matches(".*[a-zA-Z]+.*")) {
+                    throw new DataFormatException();
+                }
+                String[] bundlesSplit = lineSplit[2].trim().split("[^0-9.']+");
+                if (bundlesSplit.length % 2 != 0) {
+                    throw new DataFormatException();
+                }
 
                 ArrayList<BundleItem> bundleItems = new ArrayList<>();
-                for (int i = 0; i < bundles.length - 1; i = i + 2) {
-                    int bundleVolume = Integer.parseInt(bundles[i]);
-                    double price = Double.parseDouble(bundles[i + 1]);
+                for (int i = 0; i < bundlesSplit.length - 1; i = i + 2) {
+                    int bundleVolume = Integer.parseInt(bundlesSplit[i]);
+                    double price = Double.parseDouble(bundlesSplit[i + 1]);
                     bundleItems.add(new BundleItem(bundleVolume, price));
                 }
-                this.bundles.add(new Bundle(formatCode, bundleItems));
+                bundles.add(new Bundle(formatCode, bundleItems));
             }
             inputPriceFile.close();
         } catch (IOException e) {
@@ -52,5 +67,7 @@ public class BundleService {
         } catch (NumberFormatException e) {
             throw new DataFormatException(e.getMessage() + ": invalid number format. Please refer to README for correct format.");
         }
+
+        return bundles;
     }
 }
