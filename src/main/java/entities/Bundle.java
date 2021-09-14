@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class for each type of media and its related bundle items information
@@ -14,5 +14,5 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class Bundle {
     private String formatCode;
-    private ArrayList<BundleItem> bundleItems;
+    private List<BundleItem> bundleItems;
 }

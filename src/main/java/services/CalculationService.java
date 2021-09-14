@@ -1,32 +1,33 @@
 package services;
 
 import entities.*;
+import lombok.AllArgsConstructor;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.logging.Logger;
 
-
+@AllArgsConstructor
 public class CalculationService {
     private final static Logger LOGGER = Logger.getLogger(OrderService.class.getName());
+    private BundleComboCalculator bundleComboCalculator;
 
     /**
-     * Calculate the bundle combinations according to orders and bundle prices given, and their total costs and subtotal costs
+     * Calculate the bundle combinations according to order and bundle prices given, and their total costs and subtotal costs
      *
-     * @param orders  orders input
+     * @param order  order input
      * @param bundles bundle prices input
      * @return bundle combinations results with costs
      */
-    public List<BundleCombo> calculateBundleCombos(List<Order> orders, List<Bundle> bundles) {
+    public List<BundleCombo> calculateBundleCombos(List<OrderItem> order, List<Bundle> bundles) {
         List<BundleCombo> bundleCombos = new LinkedList<>();
 
-        orders.forEach(order -> {
-            LOGGER.info("Calculating bundle combo for order " + order.getAmount() + " " + order.getFormat());
+        order.forEach(orderItem -> {
+            LOGGER.info("Calculating bundle combo for order " + orderItem.getAmount() + " " + orderItem.getFormat());
             bundles.forEach(bundle -> {
-                if (bundle.getFormatCode().equals(order.getFormat())) {
-                    int targetAmount = order.getAmount();
+                if (bundle.getFormatCode().equals(orderItem.getFormat())) {
+                    int targetAmount = orderItem.getAmount();
                     List<Integer> amounts = bundle.getBundleItems().stream().map(BundleItem::getBundleVolume).collect(Collectors.toList());
-                    BundleComboCalculator bundleComboCalculator = new BundleComboCalculator();
                     HashMap<Integer, Integer> combo = bundleComboCalculator.getCombo(targetAmount, amounts);
 
                     List<BundleComboItem> bundleComboItems = new LinkedList<>();
@@ -38,7 +39,7 @@ public class CalculationService {
                     }));
 
                     double totalCost = bundleComboItems.stream().mapToDouble(BundleComboItem::getSubTotal).sum();
-                    bundleCombos.add(new BundleCombo(targetAmount, order.getFormat(), totalCost, bundleComboItems));
+                    bundleCombos.add(new BundleCombo(targetAmount, orderItem.getFormat(), totalCost, bundleComboItems));
                 }
             });
         });

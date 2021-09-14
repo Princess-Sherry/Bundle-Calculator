@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This services.BundleService Class is to handle the bundle prices input from social media influencers.
@@ -49,7 +50,7 @@ public class BundleService {
                     throw new DataFormatException("Bundles are not in valid volume-price pair format. Please check your file.");
                 }
 
-                ArrayList<BundleItem> bundleItems = new ArrayList<>();
+                List<BundleItem> bundleItems = new ArrayList<>();
                 for (int i = 0; i < bundlesSplit.length - 1; i = i + 2) {
                     int bundleVolume = Integer.parseInt(bundlesSplit[i]);
                     double price = Double.parseDouble(bundlesSplit[i + 1]);

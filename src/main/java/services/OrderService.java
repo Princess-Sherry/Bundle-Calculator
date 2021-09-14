@@ -1,6 +1,6 @@
 package services;
 
-import entities.Order;
+import entities.OrderItem;
 import exceptions.DataFormatException;
 import lombok.Getter;
 
@@ -11,18 +11,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * This services.OrderService Class is to handle customer's orders input
+ * This services.OrderService Class is to handle customer's order input
  */
 @Getter
 public class OrderService {
     /**
-     * Import the orders input from file from customer
+     * Import the order input from file from customer
      *
-     * @param path orders file path
-     * @return orders
+     * @param path order file path
+     * @return order
      */
-    public List<Order> loadOrderFile(String path) throws DataFormatException, IOException, NumberFormatException {
-        List<Order> orders = new LinkedList<>();
+    public List<OrderItem> loadOrderFile(String path) throws DataFormatException, IOException, NumberFormatException {
+        List<OrderItem> order = new LinkedList<>();
 
         try (BufferedReader input = new BufferedReader(new FileReader(path))) {
             String line;
@@ -31,10 +31,10 @@ public class OrderService {
                 if (lineSplit.length != 2) {
                     throw new DataFormatException("Orders file format must be in two columns. Please check your file.");
                 }
-                orders.add(new Order(Integer.parseInt(lineSplit[0]), lineSplit[1].toUpperCase()));
+                order.add(new OrderItem(Integer.parseInt(lineSplit[0]), lineSplit[1].toUpperCase()));
             }
         }
 
-        return orders;
+        return order;
     }
 }

@@ -22,7 +22,7 @@ public class BundleCalculatorTest {
     @DisplayName("Test bundle calculator main method")
     public void testMain() {
         String bundleFilePath = "src/test/resources/bundlesTestValidContent.txt";
-        String orderFilePath = "src/test/resources/ordersTestValidContent.txt";
+        String orderFilePath = "src/test/resources/orderTestValidContent.txt";
         BundleCalculator.main(new String[]{bundleFilePath, orderFilePath});
         assertTrue(outputStreamCaptor.toString().contains("2850.0"));
         assertTrue(outputStreamCaptor.toString().contains("5017.5"));

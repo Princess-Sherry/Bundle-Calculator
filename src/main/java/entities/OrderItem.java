@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Order {
+public class OrderItem {
     private int Amount;
     private String format;
 }

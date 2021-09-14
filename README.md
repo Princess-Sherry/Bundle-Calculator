@@ -20,9 +20,9 @@ After you build the project, you can run the command to see the output report in
 
 ```./gradlew run```
 
-You can overwrite bundle prices file and orders file paths by providing arguments.
+You can overwrite bundle prices file and order file paths by providing arguments.
 
-```./gradlew run --args="<the path of your bundle prices file> <the path of your orders file>"```
+```./gradlew run --args="<the path of your bundle prices file> <the path of your order file>"```
 
 ## How to run test cases
 
@@ -49,11 +49,11 @@ Audio | Flac | 3 @ $427.50 6 @ $810 9 @ $1147.50
 Video | VID | 3 @ $570 5 @ $900 9 @ $1530
 ```
 
-## Format of orders file
-* Your orders file should be a .txt file.
+## Format of order file
+* Your order file should be a .txt file.
 * The file must have two columns without header. First column is the order amount. Second column is the order format.
 
-### Example of orders file format:
+### Example of order file format:
 ```
 10 IMG  
 15 FLAC  
@@ -62,7 +62,7 @@ Video | VID | 3 @ $570 5 @ $900 9 @ $1530
 
 
 ## Expected Output    
-The output of the entities.Bundle Calculator will be printed in console. The following are the expected reports given the bundle prices and orders above.  
+The output of the entities.Bundle Calculator will be printed in console. The following are the expected reports given the bundle prices and order above.  
 ```
 10 IMG $800
   1 x 10 $800

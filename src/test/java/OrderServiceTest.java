@@ -1,4 +1,4 @@
-import entities.Order;
+import entities.OrderItem;
 import exceptions.DataFormatException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,9 +24,9 @@ public class OrderServiceTest {
     @Test
     @DisplayName("Test order file with valid content")
     public void testLoadOrderFileWithValidPathAndContent() throws DataFormatException, IOException {
-        String validPath = "src/test/resources/ordersTestValidContent.txt";
-        List<Order> orders = orderService.loadOrderFile(validPath);
-        assertEquals(3, orders.size());
+        String validPath = "src/test/resources/orderTestValidContent.txt";
+        List<OrderItem> order = orderService.loadOrderFile(validPath);
+        assertEquals(3, order.size());
     }
 
     @Test
@@ -35,7 +35,7 @@ public class OrderServiceTest {
         NumberFormatException thrown = assertThrows(
                 NumberFormatException.class,
                 () -> {
-                    String invalidPath = "src/test/resources/ordersTestWithNonIntegerAmount.txt";
+                    String invalidPath = "src/test/resources/orderTestWithNonIntegerAmount.txt";
                     orderService.loadOrderFile(invalidPath);
                 }
         );
@@ -49,7 +49,7 @@ public class OrderServiceTest {
         DataFormatException thrown = assertThrows(
                 DataFormatException.class,
                 () -> {
-                    String invalidPath = "src/test/resources/ordersTestWithOneColumn.txt";
+                    String invalidPath = "src/test/resources/orderTestWithOneColumn.txt";
                     orderService.loadOrderFile(invalidPath);
                 }
         );
@@ -63,7 +63,7 @@ public class OrderServiceTest {
         IOException thrown = assertThrows(
                 IOException.class,
                 () -> {
-                    String invalidPath = "sr/test/resources/ordersTestWithOneColumn.txt";
+                    String invalidPath = "sr/test/resources/orderTestWithOneColumn.txt";
                     orderService.loadOrderFile(invalidPath);
                 }
         );
