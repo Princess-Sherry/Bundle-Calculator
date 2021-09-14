@@ -10,6 +10,9 @@ import java.util.List;
 public class BundleCombo {
     private int targetAmount;
     private String format;
-    private double totalCost;
     private List<BundleComboItem> bundleComboItems;
+
+    public double getTotalCost() {
+        return bundleComboItems.stream().mapToDouble(BundleComboItem::getSubTotal).sum();
+    }
 }

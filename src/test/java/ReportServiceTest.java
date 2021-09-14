@@ -30,7 +30,7 @@ public class ReportServiceTest {
         List<BundleCombo> bundleCombos = new LinkedList<>();
         List<BundleComboItem> bundleComboItems = new LinkedList<>();
         bundleComboItems.add(new BundleComboItem(1, 2, 100));
-        bundleCombos.add(new BundleCombo(2, "IMG", 100, bundleComboItems));
+        bundleCombos.add(new BundleCombo(2, "IMG", bundleComboItems));
         reportService.printReports(bundleCombos);
         assertEquals("2 IMG $100.0\n" + " 1 x 2 $100.0\n", outputStreamCaptor.toString());
     }

@@ -8,5 +8,9 @@ import lombok.Getter;
 public class BundleComboItem {
     private int numberOfBundles;
     private int bundleUnit;
-    private double subTotal;
+    private double price;
+
+    public double getSubTotal() {
+        return numberOfBundles * price;
+    }
 }
