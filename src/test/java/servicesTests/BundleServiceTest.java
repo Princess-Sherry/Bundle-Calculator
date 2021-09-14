@@ -1,3 +1,5 @@
+package servicesTests;
+
 import entities.Bundle;
 import exceptions.DataFormatException;
 import org.junit.jupiter.api.BeforeEach;

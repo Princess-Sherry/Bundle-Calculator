@@ -1,3 +1,5 @@
+package servicesTests;
+
 import entities.BundleCombo;
 import entities.BundleComboItem;
 import org.junit.jupiter.api.AfterEach;

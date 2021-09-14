@@ -1,3 +1,5 @@
+package servicesTests;
+
 import entities.Bundle;
 import entities.BundleCombo;
 import entities.BundleItem;
